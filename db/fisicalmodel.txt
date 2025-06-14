@@ -1,0 +1,42 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table users {
+  id integer [primary key]
+  username varchar
+  email text
+  password text
+  role varchar [note: 'admin/partial/comum']
+  created_at timestamp
+  update_at timestamp
+
+  indexes {
+    (email,password) [name: 'login']
+    (username) [name:'name']
+  }
+}
+
+Table payments {
+  id integer [primary key]
+  user_id integer [note: 'quem realizou o pagamento']
+  user_control integer [note: 'usuário que criou o registro']
+  value real
+  receipt text
+  obs text
+  paymentdate timestamp
+  created_at timestamp
+  update_at timestamp
+
+  indexes {
+    (paymentdate) [name: 'all payments of date']
+    (value) [name: 'range of value']
+    (paymentdate, value) [name: 'all payments beetweend date and value']
+  }
+}
+
+
+
+
+
+Ref user_payment: payments.user_id > users.id // many-to-one
+
