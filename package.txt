@@ -1,0 +1,4 @@
+> backend-turma-a-2025@1.0.0 dev
+> node --watch --experimental-sqlite --trace-warnings src/server.js
+
+node: bad option: --experimental-sqlite
