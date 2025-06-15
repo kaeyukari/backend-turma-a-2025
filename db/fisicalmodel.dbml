@@ -24,7 +24,7 @@ Table payments {
   obs text
   paymentdate timestamp [not null]
   verified boolean [default: false, note: 'verificado']
-  photo text [note: 'link para foto do comprovante']
+  photo text [note: 'link to photo']
   created_at timestamp [default: `CURRENT_TIMESTAMP`]
   updated_at timestamp
 

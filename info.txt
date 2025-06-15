@@ -1,0 +1,17 @@
+o knex tem uma bliblioteca propria e serve para o banco e as migrations
+no terminal se usa o comando 
+npx knex migrate:make create_users
+para as entidades relativas do banco
+
+copiar elas do fisicalmodedel e adequar para a estrutura do knex
+
+npx knex migrate:latest
+para testar
+
+no icone no canto esquerdo o de database cria um  novo do tipo SQL
+procurar aqrquivo 
+/workspaces/backend-turma-a-2025/db/
+
+npx knex migrate:rollback
+
+voltar p corrigir
