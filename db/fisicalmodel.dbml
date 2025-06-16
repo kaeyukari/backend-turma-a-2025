@@ -3,7 +3,7 @@ Table users {
   username text [not null]
   email text [not null, unique]
   password text [default: '123456']
-  role varchar [default: 'user', note: 'admin/parcial/user']
+  role varchar [default: 'user', note: 'admin/user']
   photo text [note: 'link to photo']
   created_at timestamp [default: `CURRENT_TIMESTAMP`]
   updated_at timestamp
@@ -15,27 +15,33 @@ Table users {
   }
 }
 
-Table payments {
+Table skins {
   id integer [primary key, increment]
-  user_id integer [not null, note: 'quem realizou o pagamento']
-  user_control integer [note: 'usuário que criou o registro']
-  value real [not null]
-  receipt text [not null]
-  obs text
-  paymentdate timestamp [not null]
-  verified boolean [default: false, note: 'verificado']
-  photo text [note: 'link to photo']
+  user_id integer [not null, note: 'Criador da skin']
+  name text [not null]
+  image_url text [not null, note: 'URL da imagem da skin']
+  description text
+  species_class varchar [not null, note: 'vmp, wiz, lbw, kni, cen']
   created_at timestamp [default: `CURRENT_TIMESTAMP`]
   updated_at timestamp
 
   indexes {
-    (paymentdate) [name: 'all payments of date']
-    (value) [name: 'range of value']
-    (paymentdate, value) [name: 'all payments beetweend date and value']
+    (name) [name: 'skin_name_index']
+    (species_class) [name: 'class_filter']
   }
 }
 
+Table favorites {
+  id integer [primary key, increment]
+  user_id integer [not null]
+  skin_id integer [not null]
+  favorited_at timestamp [default: `CURRENT_TIMESTAMP`]
 
+  indexes {
+    (user_id, skin_id) [unique, name: 'unique_favorite']
+  }
+}
 
-
-Ref user_payment: payments.user_id > users.id // many-to-one
+Ref: skins.user_id > users.id
+Ref: favorites.user_id > users.id
+Ref: favorites.skin_id > skins.id
