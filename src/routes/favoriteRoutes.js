@@ -7,8 +7,13 @@ import {
   removeFavorite
 } from '../controllers/favoriteController.js';
 
-router.get('/favorite/:userId', getFavoritesByUser);
-router.post('/favorite', addFavorite);
-router.delete('/favorite', removeFavorite); // user_id e skin_id vêm no body
+// Buscar favoritos de um usuário
+router.get('/favorites/:userId', getFavoritesByUser);
+
+// Adicionar favorito
+router.post('/favorites', addFavorite);
+
+// Remover favorito
+router.delete('/favorites/:userId/:skinId', removeFavorite);
 
 export default router;

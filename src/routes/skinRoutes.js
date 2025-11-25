@@ -9,10 +9,10 @@ import {
   deleteSkin
 } from '../controllers/skinController.js';
 
-router.get('/skin', getSkins);
-router.get('/skin/:id', getSkinById);
-router.post('/skin', createSkin);
-router.patch('/skin/:id', updateSkin);
-router.delete('/skin/:id', deleteSkin);
+router.get('/skins', getSkins);
+router.get('/skins/:id', getSkinById);
+router.post('/skins', createSkin);
+router.patch('/skins/:id', updateSkin);
+router.delete('/skins/:id', deleteSkin);
 
 export default router;

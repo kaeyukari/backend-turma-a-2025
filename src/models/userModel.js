@@ -1,65 +1,58 @@
 import database from '../../db/connection.js';
 
-export async function findAll(){
-    try {
-        const query = 'SELECT id, username, email, photo FROM users;';
-        const statement = database.prepare(query);
-        const users = statement.all();
-        //statement.finalize();
-        return users;
-    } catch (error) {
-        console.log(error);
-        throw new Error('Error fetching users: '+ error.message);
-    }
-};
+export async function findAll() {
+  try {
+    return await database('users')
+      .select('id', 'username', 'email', 'photo');
+  } catch (error) {
+    throw new Error('Error fetching users: ' + error.message);
+  }
+}
 
 export async function create(userData) {
-    try {
-        const query = 'INSERT INTO users (username, email) VALUES (?, ?);';
-        const statement = database.prepare(query);
-        const result = statement.run(userData.username, userData.email);
-        return result;
-    } catch (error) {
-        console.log(error);
-        throw new Error('Error creating user: ' + error.message);
-    } 
-    
-};
+  try {
+    const result = await database('users')
+      .insert(userData)
+      .returning('id');
+
+    return { lastInsertRowid: result[0].id };
+  } catch (error) {
+    throw new Error('Error creating user: ' + error.message);
+  }
+}
 
 export async function remove(id) {
-    try {
-        const query = 'DELETE FROM users WHERE id = ?;';
-        const statement = database.prepare(query);
-        const result = statement.run(id);
-        return result;
-    } catch (error) {
-        console.log(error);
-        throw new Error('Error removing user: ' + error.message);
-    }
+  try {
+    const changes = await database('users')
+      .where({ id })
+      .del();
+
+    return { changes };
+  } catch (error) {
+    throw new Error('Error removing user: ' + error.message);
+  }
 }
 
 export async function update(id, userData) {
-    try {
-        const query = 'UPDATE users SET username = ?, email = ? WHERE id = ?;';
-        const statement = database.prepare(query);
-        const result = statement.run(userData.username, userData.email, id);
-        return result;
-    } catch (error) {
-        console.log(error);
-        throw new Error('Error updating user: ' + error.message);
-    }
-    
+  try {
+    const changes = await database('users')
+      .where({ id })
+      .update(userData);
+
+    return { changes };
+  } catch (error) {
+    throw new Error('Error updating user: ' + error.message);
+  }
 }
 
 export async function updateRole(id, role) {
-    try {
-        const query = 'UPDATE users SET role = ? WHERE id = ?;';
-        const statement = database.prepare(query);
-        const result = statement.run(role, id);
-        return result;
-    } catch (error) {
-        console.log(error);
-        throw new Error('Error updating user: ' + error.message);
-    }
-    
+  try {
+    const changes = await database('users')
+      .where({ id })
+      .update({ role });
+
+    return { changes };
+  } catch (error) {
+    throw new Error('Error updating user role: ' + error.message);
+  }
 }

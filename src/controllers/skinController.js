@@ -24,9 +24,11 @@ export const getSkinById = async (req, res) => {
   try {
     const { id } = req.params;
     const skin = await findById(id);
+
     if (!skin) {
       return res.status(404).json({ message: 'Skin não encontrada' });
     }
+
     res.status(200).json(skin);
   } catch (error) {
     console.error(error);
@@ -37,8 +39,12 @@ export const getSkinById = async (req, res) => {
 export const createSkin = async (req, res) => {
   try {
     const skinData = skinSchema.parse(req.body);
-    const result = await create(skinData);
-    res.status(201).json({ message: 'Skin criada com sucesso', skinId: result.lastInsertRowid });
+    const result = await create(skinData); // retorna { id }
+
+    res.status(201).json({
+      message: 'Skin criada com sucesso',
+      skinId: result.id
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Erro ao criar skin' });
@@ -49,9 +55,10 @@ export const updateSkin = async (req, res) => {
   try {
     const { id } = req.params;
     const skinData = skinSchema.parse(req.body);
-    const result = await update(id, skinData);
 
-    if (result.changes === 0) {
+    const updated = await update(id, skinData); // número de rows alteradas
+
+    if (updated === 0) {
       return res.status(404).json({ message: 'Skin não encontrada' });
     }
 
@@ -65,9 +72,10 @@ export const updateSkin = async (req, res) => {
 export const deleteSkin = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await remove(id);
 
-    if (result.changes === 0) {
+    const deleted = await remove(id);
+
+    if (deleted === 0) {
       return res.status(404).json({ message: 'Skin não encontrada' });
     }
 

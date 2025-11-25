@@ -1,13 +1,20 @@
 import express from 'express';
 const router = express.Router();
 
-import {getUsers, createUser, deleteUser, updateUser, updateUserRole} from '../controllers/userController.js'
+import {
+  getUsers,
+  createUser,
+  deleteUser,
+  updateUser,
+  updateUserRole
+} from '../controllers/userController.js';
 
-router.get('/user', getUsers);
-router.post('/user', createUser);
-router.delete('/user/:id', deleteUser);
-router.patch('/user/:id', updateUser);
-router.patch('/user/role/:id', updateUserRole);
+router.get('/users', getUsers);
+router.post('/users', createUser);
+router.delete('/users/:id', deleteUser);
+router.patch('/users/:id', updateUser);
 
+// Atualizar role do usuário
+router.patch('/users/:id/role', updateUserRole);
 
 export default router;
