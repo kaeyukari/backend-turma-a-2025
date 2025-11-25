@@ -1,30 +1,23 @@
 {
   "name": "backend-turma-a-2025",
   "version": "1.0.0",
-  "description": "Servidor de backend VoidRealms",
-  "main": "src/server.js",
+  "description": "Servidor de backend para estudo da Turma B do 3o. Info 2025",
+  "main": "src/index.js",
   "type": "module",
- "scripts": {
-"migrate": "knex --knexfile ./src/db/knexfile.js migrate:latest --env development"
-
-},
-
-
+  "scripts": {
+    "dev": "node --watch --trace-warnings src/index.js"
+  },
   "keywords": [
     "nodejs",
     "express",
-    "zod",
-    "backend"
+    "zod"
   ],
-  "author": "VoidRealms",
+  "author": "Graziani Zanfolin",
   "license": "MIT",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
     "express": "^4.21.2",
     "knex": "^3.1.0",
-    "pg": "^8.16.3",
-    "pg-hstore": "^2.3.4",
+    "mysql2": "^3.15.3",
     "sqlite3": "^5.1.7",
     "zod": "^3.25.64"
   }

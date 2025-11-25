@@ -10,7 +10,7 @@ server.use(express.urlencoded({ extended: true }));
 server.use("/api", rootRoutes);
 
 server.get("/", (req, res) => {
-    res.status(200).send("Primeira Rota do Backens");
+    res.status(200).send("Primeira Rota do Backends");
 });
 
 server.listen(PORT, () => {

@@ -1,12 +1,16 @@
-import { Router } from 'express';
-import skinRoutes from './skinRoutes.js';
+import express from 'express';
+const router = express.Router();
+
+
+
 import userRoutes from './userRoutes.js';
+import skinRoutes from './skinRoutes.js';
 import favoriteRoutes from './favoriteRoutes.js';
+import userRoutesMySQL from "./userRoutesMySQL.js"
 
-const router = Router();
-
-router.use('/skins', skinRoutes);
-router.use('/users', userRoutes);
-router.use('/favorites', favoriteRoutes);
+router.use(userRoutes);
+router.use(userRoutesMySQL);
+router.use(skinRoutes);
+router.use(favoriteRoutes);
 
 export default router;
